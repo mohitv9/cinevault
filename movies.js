@@ -14,7 +14,7 @@
   poster: "",
 
   videoType: "movies",
-  videoId: "kahika-1",      // ← paste your Archive.org identifier here
+  videoId: "https://archive.org/details/kahika-1",      // ← paste your Archive.org identifier here
 
   featured: false,
   trending: true,
