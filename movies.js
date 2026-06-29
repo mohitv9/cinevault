@@ -45,7 +45,7 @@ const MOVIES = [
     country: "United States",
     license: "Public domain",
     synopsis: "During the Civil War, a Confederate train engineer chases Union spies who've stolen his beloved locomotive — and accidentally his girlfriend. Buster Keaton's masterpiece of physical comedy.",
-    poster: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/The_General_poster.jpg/400px-The_General_poster.jpg",
+    poster: "images/kahika-1.jpg",
     videoType: "archive",
     videoId: "TheGeneral1926",
     featured: false,
