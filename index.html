@@ -82,6 +82,9 @@
   .footer-links a{color:var(--muted);font-size:13px;text-decoration:none;transition:color .2s}
   .footer-links a:hover{color:var(--text)}
 
+
+  .nav-search-btn{display:inline-flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:0 14px;height:36px;color:var(--muted);font-family:var(--font-body);font-size:14px;cursor:pointer;transition:all .2s}
+  .nav-search-btn:hover{color:var(--text);border-color:rgba(255,255,255,.15)}
   @media(max-width:768px){
     nav{padding:0 20px}.nav-links{display:none}
     .hero{padding:0 20px 40px;height:520px}#hero-title{font-size:54px}
@@ -101,10 +104,7 @@
     <li><a href="browse.html">Genres</a></li>
     <li><a href="browse.html">New arrivals</a></li>
   </ul>
-  <div class="search-bar">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input type="text" id="nav-search" placeholder="Search movies…">
-  </div>
+  <button class="nav-search-btn" onclick="CineVaultSearch.open('')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Search</button>
 </nav>
 
 <div class="hero">
@@ -171,6 +171,7 @@
 
 <!-- movies.js MUST load before the page script -->
 <script src="movies.js"></script>
+<script src="search.js"></script>
 <script>
   var GENRES = ['All','Action','Comedy','Drama','Horror','Sci-Fi','Romance','Western','Documentary','Animation','Thriller','Adventure','Travel'];
 
@@ -238,12 +239,7 @@
   var allRow = document.getElementById('all-row');
   MOVIES.forEach(function(m){ allRow.appendChild(buildCard(m)); });
 
-  // ── NAV SEARCH ───────────────────────────────────────────────
-  document.getElementById('nav-search').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-      window.location.href = 'browse.html?q=' + encodeURIComponent(e.target.value);
-    }
-  });
+  // Search handled by search.js overlay
 </script>
 </body>
 </html>
