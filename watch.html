@@ -60,6 +60,7 @@
 
 <nav>
   <a href="index.html" class="logo">Cine<span>Vault</span></a>
+  <button class="nav-search-btn" onclick="CineVaultSearch.open('')" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:0 14px;height:36px;color:#888899;font-family:inherit;font-size:14px;cursor:pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Search</button>
   <a href="#" id="back-link" class="back-btn">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
     Back to film details
@@ -110,6 +111,7 @@
 
 <!-- LOAD movies.js FIRST, then run the page script -->
 <script src="movies.js"></script>
+<script src="search.js"></script>
 <script>
   // Read ?id= from URL, fall back to featured film
   const params = new URLSearchParams(location.search);
