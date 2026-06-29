@@ -3,281 +3,207 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Watch: The General — CineVault</title>
+<title>Watch — CineVault</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #0a0a0f; --bg2: #12121a; --bg3: #1a1a26; --card: #16161f;
-    --border: rgba(255,255,255,0.07); --text: #f0f0f5; --muted: #888899;
-    --accent: #e63946; --accent2: #ff6b6b; --gold: #f4c430;
-    --radius: 10px; --font-display: 'Bebas Neue', sans-serif; --font-body: 'Inter', sans-serif;
-  }
-  body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 15px; line-height: 1.6; }
-
-  nav {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 48px; height: 64px;
-    background: rgba(10,10,15,0.95); border-bottom: 1px solid var(--border);
-  }
-  .logo { font-family: var(--font-display); font-size: 28px; letter-spacing: 2px; color: var(--text); text-decoration: none; }
-  .logo span { color: var(--accent); }
-  .back-btn {
-    display: inline-flex; align-items: center; gap: 6px;
-    color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s;
-  }
-  .back-btn:hover { color: var(--text); }
-
-  /* PLAYER AREA */
-  .player-wrap {
-    background: #000;
-    display: flex; justify-content: center;
-    border-bottom: 1px solid var(--border);
-  }
-  .player-inner {
-    width: 100%; max-width: 1200px;
-  }
-  .player-frame {
-    position: relative; width: 100%; padding-top: 56.25%; /* 16:9 */
-    background: #000;
-  }
-  .player-frame iframe {
-    position: absolute; inset: 0; width: 100%; height: 100%;
-    border: none;
-  }
-
-  /* INFO BELOW PLAYER */
-  .below-player {
-    max-width: 1200px; margin: 0 auto; padding: 32px 48px;
-    display: grid; grid-template-columns: 1fr 300px; gap: 40px;
-  }
-
-  .movie-title-row {
-    display: flex; align-items: flex-start; justify-content: space-between;
-    gap: 16px; margin-bottom: 12px;
-  }
-  h1 {
-    font-family: var(--font-display); font-size: 40px;
-    letter-spacing: 1.5px; line-height: 1;
-  }
-
-  .meta-row {
-    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-    font-size: 13px; color: var(--muted); margin-bottom: 20px;
-  }
-  .meta-row .rating { color: var(--gold); font-weight: 600; }
-  .meta-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--muted); }
-
-  .genre-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
-  .genre-tag {
-    padding: 3px 12px; border-radius: 999px; font-size: 12px; font-weight: 500;
-    background: rgba(230,57,70,0.12); color: var(--accent2); border: 1px solid rgba(230,57,70,0.22);
-  }
-
-  p.synopsis { color: rgba(240,240,245,0.72); font-size: 14px; line-height: 1.75; }
-
-  .action-row { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
-  .btn-primary {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--accent); color: #fff; text-decoration: none;
-    font-weight: 600; font-size: 14px; padding: 10px 20px;
-    border-radius: var(--radius); border: none; cursor: pointer; transition: background 0.2s;
-  }
-  .btn-primary:hover { background: var(--accent2); }
-  .btn-outline {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(255,255,255,0.07); color: var(--text); text-decoration: none;
-    font-weight: 500; font-size: 14px; padding: 10px 20px;
-    border-radius: var(--radius); border: 1px solid var(--border); cursor: pointer; transition: background 0.2s;
-  }
-  .btn-outline:hover { background: rgba(255,255,255,0.12); }
-
-  /* SIDEBAR */
-  .sidebar-label {
-    font-family: var(--font-display); font-size: 18px; letter-spacing: 1px;
-    color: var(--text); margin-bottom: 14px;
-  }
-  .sidebar-label span { color: var(--accent); }
-
-  .detail-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 12px; padding: 20px; margin-bottom: 20px;
-  }
-  .detail-row {
-    display: flex; justify-content: space-between; align-items: flex-start;
-    padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 13px;
-  }
-  .detail-row:last-child { border-bottom: none; }
-  .detail-row .label { color: var(--muted); }
-  .detail-row .value { color: var(--text); font-weight: 500; text-align: right; }
-
-  /* UP NEXT */
-  .up-next-card {
-    display: flex; gap: 12px; padding: 12px;
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: var(--radius); text-decoration: none; color: inherit;
-    transition: border-color 0.2s, transform 0.15s;
-  }
-  .up-next-card:hover { border-color: rgba(230,57,70,0.4); transform: translateY(-2px); }
-  .up-next-thumb {
-    flex-shrink: 0; width: 80px; aspect-ratio: 2/3;
-    background: var(--bg3); border-radius: 6px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .up-next-thumb svg { opacity: 0.3; }
-  .up-next-info { flex: 1; }
-  .up-next-title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
-  .up-next-meta { font-size: 12px; color: var(--muted); }
-
-  .next-films { display: flex; flex-direction: column; gap: 10px; }
-
-  footer { margin-top: 48px; padding: 32px 48px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
-  footer .logo { font-size: 22px; }
-  footer p { color: var(--muted); font-size: 13px; }
-  .footer-links { display: flex; gap: 24px; list-style: none; }
-  .footer-links a { color: var(--muted); font-size: 13px; text-decoration: none; transition: color 0.2s; }
-  .footer-links a:hover { color: var(--text); }
-
-  @media (max-width: 900px) {
-    nav { padding: 0 20px; }
-    .below-player { grid-template-columns: 1fr; padding: 24px 20px; }
-    footer { padding: 28px 20px; flex-direction: column; align-items: flex-start; }
-  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a26;--card:#16161f;--border:rgba(255,255,255,0.07);--text:#f0f0f5;--muted:#888899;--accent:#e63946;--accent2:#ff6b6b;--gold:#f4c430;--radius:10px;--font-display:'Bebas Neue',sans-serif;--font-body:'Inter',sans-serif}
+  body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.6}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;background:rgba(10,10,15,.95);border-bottom:1px solid var(--border)}
+  .logo{font-family:var(--font-display);font-size:28px;letter-spacing:2px;color:var(--text);text-decoration:none}
+  .logo span{color:var(--accent)}
+  .back-btn{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
+  .back-btn:hover{color:var(--text)}
+  .player-wrap{background:#000;display:flex;justify-content:center;border-bottom:1px solid var(--border)}
+  .player-inner{width:100%;max-width:1200px}
+  .player-frame{position:relative;width:100%;padding-top:56.25%;background:#000}
+  .player-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+  .player-frame video{position:absolute;inset:0;width:100%;height:100%;background:#000}
+  .player-error{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--muted);font-size:14px;text-align:center;padding:20px}
+  .player-error svg{opacity:.4}
+  .below-player{max-width:1200px;margin:0 auto;padding:32px 48px;display:grid;grid-template-columns:1fr 300px;gap:40px}
+  h1{font-family:var(--font-display);font-size:40px;letter-spacing:1.5px;line-height:1;margin-bottom:12px}
+  .meta-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-bottom:20px}
+  .meta-row .rating{color:var(--gold);font-weight:600}
+  .meta-dot{width:3px;height:3px;border-radius:50%;background:var(--muted)}
+  .genre-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+  .genre-tag{padding:3px 12px;border-radius:999px;font-size:12px;font-weight:500;background:rgba(230,57,70,.12);color:var(--accent2);border:1px solid rgba(230,57,70,.22)}
+  p.synopsis{color:rgba(240,240,245,.72);font-size:14px;line-height:1.75}
+  .action-row{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+  .btn-outline{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.07);color:var(--text);text-decoration:none;font-weight:500;font-size:14px;padding:10px 20px;border-radius:var(--radius);border:1px solid var(--border);cursor:pointer;transition:background .2s}
+  .btn-outline:hover{background:rgba(255,255,255,.12)}
+  .sidebar-label{font-family:var(--font-display);font-size:18px;letter-spacing:1px;color:var(--text);margin-bottom:14px}
+  .sidebar-label span{color:var(--accent)}
+  .detail-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px}
+  .detail-row{display:flex;justify-content:space-between;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px}
+  .detail-row:last-child{border-bottom:none}
+  .detail-row .label{color:var(--muted)}
+  .detail-row .value{color:var(--text);font-weight:500;text-align:right}
+  .next-films{display:flex;flex-direction:column;gap:10px}
+  .up-next-card{display:flex;gap:12px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);text-decoration:none;color:inherit;transition:border-color .2s,transform .15s}
+  .up-next-card:hover{border-color:rgba(230,57,70,.4);transform:translateY(-2px)}
+  .up-next-thumb{flex-shrink:0;width:80px;aspect-ratio:2/3;background:var(--bg3);border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .up-next-thumb img{width:100%;height:100%;object-fit:cover}
+  .up-next-thumb svg{opacity:.3}
+  .up-next-info{flex:1}
+  .up-next-title{font-weight:600;font-size:14px;margin-bottom:4px}
+  .up-next-meta{font-size:12px;color:var(--muted)}
+  footer{margin-top:48px;padding:32px 48px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  footer p{color:var(--muted);font-size:13px}
+  .footer-links{display:flex;gap:24px;list-style:none}
+  .footer-links a{color:var(--muted);font-size:13px;text-decoration:none;transition:color .2s}
+  .footer-links a:hover{color:var(--text)}
+  @media(max-width:900px){nav{padding:0 20px}.below-player{grid-template-columns:1fr;padding:24px 20px}footer{padding:28px 20px;flex-direction:column;align-items:flex-start}}
 </style>
 </head>
 <body>
 
 <nav>
   <a href="index.html" class="logo">Cine<span>Vault</span></a>
-  <a href="movie.html" class="back-btn">
+  <a href="#" id="back-link" class="back-btn">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
     Back to film details
   </a>
 </nav>
 
-<!-- VIDEO PLAYER -->
 <div class="player-wrap">
   <div class="player-inner">
-    <div class="player-frame">
-      <!--
-        This embeds "The General" (1926) from Archive.org — 100% legal, public domain.
-        For other movies, replace the src URL with the Archive.org embed URL of that film.
-        Format: https://archive.org/embed/IDENTIFIER
-      -->
-      <iframe
-    id="moviePlayer"
-    allowfullscreen>
-      </iframe> 
+    <div class="player-frame" id="player-frame">
+      <div class="player-error">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Loading player…
+      </div>
     </div>
   </div>
 </div>
 
-<!-- BELOW PLAYER -->
 <div class="below-player">
-
-  <!-- LEFT: Info -->
   <div>
-    <div class="movie-title-row">
-      <h1>The General</h1>
-    </div>
-    <div class="meta-row">
-      <span class="rating">★ 8.1 / 10</span>
-      <span class="meta-dot"></span>
-      <span>1926</span>
-      <span class="meta-dot"></span>
-      <span>75 min</span>
-      <span class="meta-dot"></span>
-      <span>Directed by Buster Keaton</span>
-      <span class="meta-dot"></span>
-      <span style="color:#4ade80; font-weight:600;">✓ Public domain</span>
-    </div>
-    <div class="genre-tags">
-      <span class="genre-tag">Comedy</span>
-      <span class="genre-tag">Action</span>
-      <span class="genre-tag">Silent film</span>
-    </div>
-    <p class="synopsis">
-      During the Civil War, a Confederate train engineer chases down Union spies who've stolen his beloved
-      locomotive — and accidentally his girlfriend. Widely regarded as one of the greatest films ever made,
-      combining physical comedy and genuine cinematic invention in a way that still astounds today.
-    </p>
+    <h1 id="movie-title">—</h1>
+    <div class="meta-row" id="meta-row"></div>
+    <div class="genre-tags" id="genre-tags"></div>
+    <p class="synopsis" id="synopsis"></p>
     <div class="action-row">
-      <a href="movie.html" class="btn-outline">
+      <a id="detail-link" href="#" class="btn-outline">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         Full details
       </a>
-      <a href="https://archive.org/details/TheGeneral1926" target="_blank" class="btn-outline">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        View on Archive.org
-      </a>
-      <button class="btn-outline" onclick="toggleWatchlist(this)">
+      <button class="btn-outline" id="wl-btn" onclick="toggleWatchlist(this)">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="wl-icon"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         <span id="wl-text">Add to watchlist</span>
       </button>
     </div>
   </div>
-
-  <!-- RIGHT: Sidebar -->
   <div>
     <h2 class="sidebar-label">Film <span>details</span></h2>
-    <div class="detail-card">
-      <div class="detail-row"><span class="label">Year</span><span class="value">1926</span></div>
-      <div class="detail-row"><span class="label">Runtime</span><span class="value">75 min</span></div>
-      <div class="detail-row"><span class="label">Director</span><span class="value">Buster Keaton</span></div>
-      <div class="detail-row"><span class="label">Language</span><span class="value">Silent</span></div>
-      <div class="detail-row"><span class="label">License</span><span class="value" style="color:#4ade80;">Public domain</span></div>
-    </div>
-
-    <h2 class="sidebar-label" style="margin-bottom:12px;">Up <span>next</span></h2>
-    <div class="next-films">
-      <a href="watch.html" class="up-next-card">
-        <div class="up-next-thumb">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-        </div>
-        <div class="up-next-info">
-          <div class="up-next-title">Sherlock Jr.</div>
-          <div class="up-next-meta">1924 · 45 min · ★ 8.2</div>
-        </div>
-      </a>
-      <a href="watch.html" class="up-next-card">
-        <div class="up-next-thumb">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-        </div>
-        <div class="up-next-info">
-          <div class="up-next-title">Metropolis</div>
-          <div class="up-next-meta">1927 · 153 min · ★ 8.3</div>
-        </div>
-      </a>
-      <a href="watch.html" class="up-next-card">
-        <div class="up-next-thumb">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-        </div>
-        <div class="up-next-info">
-          <div class="up-next-title">Nosferatu</div>
-          <div class="up-next-meta">1922 · 94 min · ★ 7.9</div>
-        </div>
-      </a>
-    </div>
+    <div class="detail-card" id="detail-card"></div>
+    <h2 class="sidebar-label" style="margin-bottom:12px">Up <span>next</span></h2>
+    <div class="next-films" id="next-films"></div>
   </div>
-
 </div>
 
 <footer>
   <a href="index.html" class="logo">Cine<span>Vault</span></a>
-  <ul class="footer-links">
-    <li><a href="#">About</a></li>
-    <li><a href="#">Legal</a></li>
-    <li><a href="#">Sources</a></li>
-  </ul>
-  <p>All films are in the public domain. Free forever.</p>
+  <ul class="footer-links"><li><a href="#">About</a></li><li><a href="#">Legal</a></li><li><a href="#">Sources</a></li></ul>
+  <p>All films are in the public domain or under open licenses. Free forever.</p>
 </footer>
 
+<!-- LOAD movies.js FIRST, then run the page script -->
+<script src="movies.js"></script>
 <script>
+  // Read ?id= from URL, fall back to featured film
+  const params = new URLSearchParams(location.search);
+  const movieId = params.get('id');
+  const movie = (movieId ? getMovieById(movieId) : null) || getFeaturedMovie();
+
+  // Nav back link
+  document.getElementById('back-link').href = getMovieUrl(movie);
+  document.getElementById('detail-link').href = getMovieUrl(movie);
+
+  // Page title
+  document.title = 'Watch: ' + movie.title + ' — CineVault';
+  document.getElementById('movie-title').textContent = movie.title;
+
+  // Meta row
+  document.getElementById('meta-row').innerHTML =
+    '<span class="rating">★ ' + movie.rating + '</span>' +
+    '<span class="meta-dot"></span><span>' + movie.year + '</span>' +
+    '<span class="meta-dot"></span><span>' + renderRuntime(movie.runtime) + '</span>' +
+    '<span class="meta-dot"></span><span>Directed by ' + movie.director + '</span>' +
+    '<span class="meta-dot"></span><span style="color:#4ade80;font-weight:600">✓ ' + movie.license + '</span>';
+
+  // Genre tags
+  movie.genres.forEach(function(g) {
+    var s = document.createElement('span');
+    s.className = 'genre-tag';
+    s.textContent = g;
+    document.getElementById('genre-tags').appendChild(s);
+  });
+
+  // Synopsis
+  document.getElementById('synopsis').textContent = movie.synopsis;
+
+  // ── PLAYER ──────────────────────────────────────────────────
+  var frame = document.getElementById('player-frame');
+
+  if (movie.videoType === 'archive' && movie.videoId) {
+    var embedUrl = 'https://archive.org/embed/' + movie.videoId;
+    frame.innerHTML = '<iframe src="' + embedUrl + '" allowfullscreen allow="fullscreen" title="' + movie.title + '"></iframe>';
+
+  } else if (movie.videoType === 'youtube' && movie.videoId) {
+    var embedUrl = 'https://www.youtube.com/embed/' + movie.videoId + '?rel=0&modestbranding=1';
+    frame.innerHTML = '<iframe src="' + embedUrl + '" allowfullscreen allow="fullscreen" title="' + movie.title + '"></iframe>';
+
+  } else if (movie.videoType === 'mp4' && movie.videoUrl) {
+    frame.innerHTML = '<video controls autoplay><source src="' + movie.videoUrl + '" type="video/mp4">Your browser does not support video.</video>';
+
+  } else {
+    frame.innerHTML =
+      '<div class="player-error">' +
+      '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>' +
+      'No video source found for this film.<br>Check that videoType and videoId are set in movies.js.' +
+      '</div>';
+  }
+
+  // Detail card
+  var rows = [
+    ['Year',    movie.year],
+    ['Runtime', renderRuntime(movie.runtime)],
+    ['Director',movie.director],
+    ['Cast',    movie.cast.slice(0,3).join(', ')],
+    ['Language',movie.language],
+    ['License', '<span style="color:#4ade80">' + movie.license + '</span>'],
+    ['Rating',  '<span style="color:var(--gold)">★ ' + movie.rating + ' / 10</span>'],
+  ];
+  document.getElementById('detail-card').innerHTML = rows.map(function(r) {
+    return '<div class="detail-row"><span class="label">' + r[0] + '</span><span class="value">' + r[1] + '</span></div>';
+  }).join('');
+
+  // Up next
+  var related = getRelatedMovies(movie, 3);
+  var nextFilms = document.getElementById('next-films');
+  related.forEach(function(m) {
+    var a = document.createElement('a');
+    a.href = getWatchUrl(m);
+    a.className = 'up-next-card';
+    var thumbHtml = m.poster
+      ? '<img src="' + m.poster + '" alt="' + m.title + '" loading="lazy">'
+      : '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>';
+    a.innerHTML =
+      '<div class="up-next-thumb">' + thumbHtml + '</div>' +
+      '<div class="up-next-info">' +
+        '<div class="up-next-title">' + m.title + '</div>' +
+        '<div class="up-next-meta">' + m.year + ' · ' + renderRuntime(m.runtime) + ' · ★ ' + m.rating + '</div>' +
+      '</div>';
+    nextFilms.appendChild(a);
+  });
+
+  // Watchlist toggle
   function toggleWatchlist(btn) {
-    const inList = btn.dataset.inList === 'true';
-    btn.dataset.inList = !inList;
+    var inList = btn.dataset.inList === 'true';
+    btn.dataset.inList = String(!inList);
     document.getElementById('wl-text').textContent = inList ? 'Add to watchlist' : 'In watchlist';
-    const icon = document.getElementById('wl-icon');
+    var icon = document.getElementById('wl-icon');
     if (!inList) {
       icon.innerHTML = '<polyline points="20 6 9 17 4 12"/>';
       icon.setAttribute('stroke', '#4ade80');
@@ -286,17 +212,6 @@
       icon.setAttribute('stroke', 'currentColor');
     }
   }
-
- const iframe = document.getElementById("moviePlayer");
-
-if (movie.videoType === "archive") {
-    iframe.src = `https://archive.org/embed/${movie.videoId}`;
-}
-else if (movie.videoType === "youtube") {
-    iframe.src = `https://www.youtube.com/embed/${movie.videoId}`;
-}
 </script>
- 
-
 </body>
 </html>
