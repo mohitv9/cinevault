@@ -165,11 +165,9 @@
         Format: https://archive.org/embed/IDENTIFIER
       -->
       <iframe
-        src="https://archive.org/embed/TheGeneral1926"
-        allowfullscreen
-        title="The General (1926) — Buster Keaton"
-        allow="fullscreen">
-      </iframe>
+    id="moviePlayer"
+    allowfullscreen>
+      </iframe> 
     </div>
   </div>
 </div>
@@ -288,7 +286,17 @@
       icon.setAttribute('stroke', 'currentColor');
     }
   }
+
+ const iframe = document.getElementById("moviePlayer");
+
+if (movie.videoType === "archive") {
+    iframe.src = `https://archive.org/embed/${movie.videoId}`;
+}
+else if (movie.videoType === "youtube") {
+    iframe.src = `https://www.youtube.com/embed/${movie.videoId}`;
+}
 </script>
+ 
 
 </body>
 </html>
